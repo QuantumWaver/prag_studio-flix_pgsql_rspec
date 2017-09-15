@@ -1,6 +1,7 @@
 --require spec_helper
 
 --color
+--format documentation
+
 #--require rails_helper
 #--format Fuubar
---format documentation
