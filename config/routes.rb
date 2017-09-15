@@ -5,12 +5,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  #root to: 'movies#index' # root_path or root_url
+  root to: 'movies#index' # root_path or root_url
 
   # Routes for Movie model
   # mapping requests (type and resource) to a controller/action pair
   get 'movies', to: 'movies#index'
-  #get 'movies/:id', to: 'movies#show', as: 'movie'
-
+  get 'movies/:id', to: 'movies#show', as: 'movie'
 
 end
