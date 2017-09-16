@@ -8,4 +8,8 @@ class MoviesController < ApplicationController
     @movie = Movie.find_by(id: params[:id])
   end
 
+  def edit
+    @movie = Movie.find(params[:id])
+  end
+
 end

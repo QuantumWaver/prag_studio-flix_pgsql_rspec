@@ -13,10 +13,17 @@ describe "Navigating movies" do
     expect(current_path).to eq(movies_path)
   end
 
+  it "allows navigation from the detail page to the edit page" do
+    visit movie_url(@movie)
+
+    click_link "Edit"
+    expect(current_path).to eq(edit_movie_path(@movie))
+  end
+
   it "allows navigation from the listing page to the detail page" do
       visit movies_url
 
       click_link @movie.title
       expect(current_path).to eq(movie_path(@movie))
-    end
+  end
 end
