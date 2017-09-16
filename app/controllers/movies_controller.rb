@@ -12,6 +12,18 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
   end
 
+  def new
+    @movie = Movie.new
+  end
+
+  def create
+    @movie = Movie.new(movie_params)
+    if @movie.save
+      flash[:notice] = "Camera created!"
+      redirect_to @movie
+    end
+  end
+
   def update
     @movie = Movie.find(params[:id])
     @movie.update(movie_params)
@@ -22,10 +34,12 @@ class MoviesController < ApplicationController
 
   def movie_params
     # this will throw an exception if ':movie' param is not present
-    params.require(:movie).permit(:title, :description, :rating, :released_on, :total_gross)
+    params.require(:movie).
+      permit(:title, :description, :rating, :released_on, :total_gross)
 
     # this will return an empty hash if the ':movie' param is not present
-    #params.fetch(:movie, {}).permit(:title, :description, :rating, :released_on, :total_gross)
+    #params.fetch(:movie, {}).
+    #  permit(:title, :description, :rating, :released_on, :total_gross)
   end
 
 end
