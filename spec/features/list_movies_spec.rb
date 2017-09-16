@@ -30,7 +30,7 @@ describe "Viewing the list of movies" do
 
     expect(page).to have_text(movie1.rating)
     expect(page).to have_text(movie1.description[0..10])
-    expect(page).to have_text(movie1.released_on)
+    expect(page).to have_text("May 2, 2008")
     expect(page).to have_text("$318,412,101.00")
   end
 

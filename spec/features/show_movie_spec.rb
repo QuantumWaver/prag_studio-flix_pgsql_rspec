@@ -3,14 +3,14 @@ require 'rails_helper'
 describe "Viewing an individual movie" do
 
   it "shows the movie's details" do
-    movie = Movie.create(movie_attributes)
+    movie = Movie.create(movie_attributes(released_on: "1977-07-15"))
 
     visit movie_url(movie)
 
     expect(page).to have_text(movie.title)
     expect(page).to have_text(movie.rating)
     expect(page).to have_text(movie.description)
-    expect(page).to have_text(movie.released_on)
+    expect(page).to have_text("July 15, 1977")
   end
 
   it "shows the gross if greater than $50M" do
