@@ -21,9 +21,19 @@ describe "Navigating movies" do
   end
 
   it "allows navigation from the listing page to the detail page" do
-      visit movies_url
+    visit movies_url
 
-      click_link @movie.title
-      expect(current_path).to eq(movie_path(@movie))
+    click_link @movie.title
+    expect(current_path).to eq(movie_path(@movie))
+  end
+
+  it "allows cancelation from Edit and New pages back to the index" do
+    visit new_movie_url
+    click_link 'Cancel'
+    expect(current_path).to eq(movies_path)
+
+    visit edit_movie_url(@movie)
+    click_link 'Cancel'
+    expect(current_path).to eq(movies_path)
   end
 end

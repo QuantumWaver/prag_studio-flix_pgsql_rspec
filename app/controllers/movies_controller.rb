@@ -19,7 +19,6 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
     if @movie.save
-      flash[:notice] = "Camera created!"
       redirect_to @movie
     end
   end
