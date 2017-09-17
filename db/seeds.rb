@@ -13,6 +13,10 @@ Movie.create!([
     total_gross: 318412101.00,
     description: "Tony Stark builds an armored suit to fight the throes of evil",
     released_on: "2008-05-02"
+    cast: "Robert Downey Jr., Gwyneth Paltrow and Terrence Howard",
+    director: "Jon Favreau",
+    duration: "126 min",
+    image_file_name: "ironman.jpg"
   },
   {
     title: "Star Wars",
@@ -34,6 +38,10 @@ Movie.create!([
     total_gross: 40200000.00,
     description: "Patience Philips has a more than respectable career as a graphic designer",
     released_on: "2004-07-23"
+    cast: "Halle Berry, Sharon Stone and Benjamin Bratt",
+    director: "Jean-Christophe 'Pitof' Comar",
+    duration: "101 min",
+    image_file_name: "catwoman.jpg"
   },
   {
     title: "Blade Runner",

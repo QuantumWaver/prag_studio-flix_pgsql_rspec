@@ -40,7 +40,15 @@ class MoviesController < ApplicationController
   def movie_params
     # this will throw an exception if ':movie' param is not present
     params.require(:movie).
-      permit(:title, :description, :rating, :released_on, :total_gross)
+      permit( :title,
+              :description,
+              :rating,
+              :released_on,
+              :total_gross,
+              :cast,
+              :director,
+              :duration,
+              :image_file_name )
 
     # this will return an empty hash if the ':movie' param is not present
     #params.fetch(:movie, {}).

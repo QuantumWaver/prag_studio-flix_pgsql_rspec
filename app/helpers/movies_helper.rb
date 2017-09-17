@@ -15,4 +15,9 @@ module MoviesHelper
     " (#{time_ago_in_words(movie.released_on)})"
   end
 
+  def image_for(movie)
+    file = movie.image_file_name.blank? ? 'placeholder.png' : movie.image_file_name
+    image_tag(file)
+  end
+
 end

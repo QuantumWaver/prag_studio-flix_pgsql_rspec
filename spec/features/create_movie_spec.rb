@@ -15,6 +15,11 @@ describe "Creating a movie" do
     fill_in 'Rating', with: "PG-13"
     fill_in "Total gross", with: "75000000"
 
+    fill_in "Cast", with: "The award-winning cast"
+    fill_in "Director", with: "The ever-creative director"
+    fill_in "Duration", with: "123 min"
+    fill_in "Image file name", with: "placeholder.png"
+
     click_button 'Create Movie'
     expect(current_path).to eq(movie_path(Movie.last))
     expect(page).to have_text('Created Movie Title')
