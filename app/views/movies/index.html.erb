@@ -1,7 +1,5 @@
 <h1><%= pluralize(@movies.count, 'Movie') %></h1>
 
-<%= link_to("Add New Movie", new_movie_path) %>
-
 <p>Movies array Object ID: <%= @movies.object_id %></p>
 
 <% @movies.each do |movie| %>
