@@ -1,12 +1,10 @@
 <h1><%= pluralize(@movies.count, 'Movie') %></h1>
 
-<p>Movies array Object ID: <%= @movies.object_id %></p>
-
 <% @movies.each do |movie| %>
-  <article>
+  <article class="movie">
     <header>
-      <h2><%= link_to movie.title, movie %></h2>
       <%= image_for(movie) %>
+      <h2><%= link_to movie.title, movie %></h2>
       <h3><%= movie.cast %></h3>
     </header>
     <p>
