@@ -20,4 +20,8 @@ class Movie < ApplicationRecord
     total_gross.blank? || total_gross < 50000000
   end
 
+  def new?
+    id.nil?
+  end
+
 end

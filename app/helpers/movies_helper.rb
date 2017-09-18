@@ -20,4 +20,8 @@ module MoviesHelper
     image_tag(file)
   end
 
+  def cancel_form_path(movie)
+    movie.new? ? movies_path : movie_path(movie)
+  end
+
 end

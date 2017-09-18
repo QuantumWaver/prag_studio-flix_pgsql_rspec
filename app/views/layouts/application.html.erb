@@ -9,14 +9,21 @@
   </head>
 
   <body>
+    <%= render "layouts/header" %>
 
-    <%= render 'layouts/header' %>
+    <div id="wrapper">
 
-    <%= render 'layouts/sidebar' %>
+      <div id="container">
+        <section id="sidebar">
+          <%= render "layouts/sidebar" %>
+        </section>
+        <section id="content">
+          <%= yield %>
+        </section>
+      </div>
 
-    <%= yield %>
+    </div>
 
-    <%= render 'layouts/footer' %>
-
+    <%= render "layouts/footer" %>
   </body>
 </html>

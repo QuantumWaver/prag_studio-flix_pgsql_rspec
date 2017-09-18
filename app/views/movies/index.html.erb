@@ -1,33 +1,33 @@
-<h1><%= pluralize(@movies.count, 'Movie') %></h1>
-
-<% @movies.each do |movie| %>
-  <article class="movie">
-    <header>
-      <%= image_for(movie) %>
-      <h2><%= link_to movie.title, movie %></h2>
-      <h3><%= movie.cast %></h3>
-    </header>
-    <p>
-      <%= truncate(movie.description, length: 30, separator: " ") %>
-    </p>
-    <table>
-      <tr>
-        <th>Released:</th>
-        <td><%= format_release_date(movie) %></td>
-      </tr>
-      <tr>
-        <th>Rating:</th>
-        <td><%= movie.rating %></td>
-      </tr>
-      <tr>
-        <th>Duration:</th>
-        <td><%= movie.duration %></td>
-      </tr>
-      <tr>
-        <th>Total Gross:</th>
-        <td><%= format_total_gross(movie) %></td>
-      </tr>
-    </table>
-  </article>
-<% end %>
+<ul id="movies">
+  <% @movies.each do |movie| %>
+    <li>
+      <article class="movie">
+        <header>
+          <%= image_for(movie) %>
+          <h2><%= link_to movie.title, movie %> (<%= movie.released_on.year %>)</h2>
+          <h3><%= movie.cast %></h3>
+        </header>
+        <p>
+          <%= truncate(movie.description, length: 150, separator: ' ') %>
+        </p>
+        <table>
+          <tr>
+            <th>Rating</th>
+            <td><%= movie.rating %></td>
+          </tr>
+          <tr>
+            <th>Duration</th>
+            <td><%= movie.duration %></td>
+          </tr>
+          <tr>
+            <th>Total Gross</th>
+            <td><%= format_total_gross(movie) %></td>
+          </tr>
+        </table>
+        <footer>
+        </footer>
+      </article>
+    </li>
+  <% end %>
+</ul>
 
