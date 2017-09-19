@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "A movie" do
+describe "A Movie" do
 
   it "is valid with example attributes" do
     movie = Movie.new(movie_attributes)
@@ -127,6 +127,29 @@ describe "A movie" do
     movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
+  end
+
+  describe "with Reviews" do
+
+    it "can have many reviews" do
+      movie = Movie.new(movie_attributes)
+
+      review1 = movie.reviews.new(review_attributes)
+      review2 = movie.reviews.new(review_attributes)
+
+      expect(movie.reviews).to include(review1)
+      expect(movie.reviews).to include(review2)
+    end
+
+    it "deletes all associated reviews" do
+      movie = Movie.create(movie_attributes)
+
+      movie.reviews.create(review_attributes)
+
+      expect {
+        movie.destroy
+      }.to change(Review, :count).by(-1)
+    end
   end
 
 end

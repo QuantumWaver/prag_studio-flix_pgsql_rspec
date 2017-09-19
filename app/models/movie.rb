@@ -1,7 +1,7 @@
 class Movie < ApplicationRecord
   # This declaration tells Rails to expect a 'movie_id'
   # foreign key column in the table wrapped by the Review model
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   RATINGS = %w(G PG PG-13 R NC-17)
 
