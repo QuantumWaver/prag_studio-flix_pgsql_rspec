@@ -12,16 +12,18 @@
     <%= render "layouts/header" %>
 
     <div id="wrapper">
+      <%= render "layouts/flashes" %>
 
       <div id="container">
         <section id="sidebar">
           <%= render "layouts/sidebar" %>
         </section>
+
         <section id="content">
           <%= yield %>
         </section>
-      </div>
 
+      </div>
     </div>
 
     <%= render "layouts/footer" %>
