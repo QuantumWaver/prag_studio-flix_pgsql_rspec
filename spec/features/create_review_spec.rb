@@ -16,7 +16,7 @@ describe "Creating a Review" do
     expect(find_field('Name').value).to be_nil
 
     fill_in 'Name', with: "Kevin Moore"
-    select "1", :from => "review_stars"
+    choose'review_stars_3'
     fill_in "Location", with: "Iowa City, IA"
     fill_in "Comment", with: "I hated this movie!"
 
