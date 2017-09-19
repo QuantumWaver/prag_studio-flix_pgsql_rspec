@@ -20,13 +20,22 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
     if @movie.save
       redirect_to @movie
+    else
+      # by rendering, and not redirecting, we preserve all
+      # the valid data that was entered
+      render :new  # 'movies/new'
     end
   end
 
   def update
     @movie = Movie.find(params[:id])
-    @movie.update(movie_params)
-    redirect_to @movie
+    if @movie.update(movie_params)
+      redirect_to @movie
+     else
+      # by rendering, and not redirecting, we preserve all
+      # the valid data that was entered
+      render :edit  # 'movies/edit'
+    end
   end
 
   def destroy
