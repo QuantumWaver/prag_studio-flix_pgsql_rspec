@@ -12,12 +12,13 @@ describe "Creating a movie" do
     expect(find_field('Title').value).to be_nil
 
     fill_in 'Title', with: "Created Movie Title"
-    fill_in 'Rating', with: "PG-13"
+    select "PG-13", :from => "movie_rating"
     fill_in "Total gross", with: "75000000"
 
     fill_in "Cast", with: "The award-winning cast"
     fill_in "Director", with: "The ever-creative director"
     fill_in "Duration", with: "123 min"
+    fill_in "Description", with: "desc" * 24
     fill_in "Image file name", with: "placeholder.png"
 
     click_button 'Create Movie'
