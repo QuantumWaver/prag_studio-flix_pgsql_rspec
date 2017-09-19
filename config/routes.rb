@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   # get 'movies/:id/edit', to: 'movies#edit', as: 'edit_movie'
   # patch 'movies/:id', to: 'movies#update'
   resources :movies
+
+  resources :reviews
 
 end
