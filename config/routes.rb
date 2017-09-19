@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   # get 'movies/:id', to: 'movies#show', as: 'movie'
   # get 'movies/:id/edit', to: 'movies#edit', as: 'edit_movie'
   # patch 'movies/:id', to: 'movies#update'
-  resources :movies
 
-  resources :reviews
+  # This will give us nested routes like:
+  #  /movies/:movie_id/reviews
+  resources :movies do
+    resources :reviews
+  end
 
 end
