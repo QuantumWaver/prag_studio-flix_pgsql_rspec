@@ -12,20 +12,24 @@ class Movie < ApplicationRecord
   }
 
   # CLASS METHODS
-  def self.released
-    where("released_on <= ?", Time.now).order(released_on: :desc)
-  end
+  # this is a convenient way to define classs methods when
+  # you have to define many class methods
+  class << self
+    def released
+      where("released_on <= ?", Time.now).order(released_on: :desc)
+    end
 
-  def self.hits
-    where('total_gross >= 300000000').order(total_gross: :desc)
-  end
+    def hits
+      where('total_gross >= 300000000').order(total_gross: :desc)
+    end
 
-  def self.flops
-    where('total_gross < 50000000').order(total_gross: :asc)
-  end
+    def flops
+      where('total_gross < 50000000').order(total_gross: :asc)
+    end
 
-  def self.recently_added
-    order(created_at: :desc).limit(3)
+    def recently_added
+      order(created_at: :desc).limit(3)
+    end
   end
 
   # INSTANCE METHODS
