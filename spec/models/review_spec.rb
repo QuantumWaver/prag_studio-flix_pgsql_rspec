@@ -51,4 +51,16 @@ describe "A Review" do
     end
   end
 
+  it "requires a location" do
+    review = Review.new(location: "")
+    review.valid?
+    expect(review.errors[:location].any?).to eq(true)
+  end
+
+  it "requires a location over 3 characters" do
+    review = Review.new(location: "X" * 3)
+    review.valid?
+    expect(review.errors[:location].any?).to eq(true)
+  end
+
 end
