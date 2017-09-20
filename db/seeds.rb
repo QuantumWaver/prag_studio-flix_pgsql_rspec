@@ -39,7 +39,7 @@ Movie.create!([
     rating: "PG-13",
     total_gross: 40200000.00,
     description: "Patience Philips has a more than respectable career as a graphic designer",
-    released_on: "2004-07-23"
+    released_on: "2004-07-23",
     cast: "Halle Berry, Sharon Stone and Benjamin Bratt",
     director: "Jean-Christophe 'Pitof' Comar",
     duration: "101 min",
