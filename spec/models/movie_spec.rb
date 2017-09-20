@@ -111,6 +111,16 @@ describe "A Movie" do
     expect(movie.flop?).to eq(false)
   end
 
+  it "is not a flop if the total gross is less than $50M and has cult following" do
+    movie = Movie.create(movie_attributes(total_gross: 49000000.00))
+
+    1.upto(50) do
+      movie.reviews.create(review_attributes(stars: rand(4..5)))
+    end
+
+    expect(movie.flop?).to eq(false)
+  end
+
   it "is released when the released on date is in the past" do
     movie = Movie.create(movie_attributes(released_on: 3.months.ago))
 

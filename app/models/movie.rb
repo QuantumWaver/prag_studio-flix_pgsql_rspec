@@ -41,7 +41,13 @@ class Movie < ApplicationRecord
   end
 
   def flop?
-    total_gross.blank? || total_gross < 50000000
+    return true if total_gross.blank?
+
+    if total_gross < 50000000
+      return true unless reviews.count >= 50 && average_stars >= 4.0
+    end
+
+    return false
   end
 
   def new?
