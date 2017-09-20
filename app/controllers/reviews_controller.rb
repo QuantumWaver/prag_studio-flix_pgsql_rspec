@@ -20,6 +20,16 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    review = @movie.reviews.find(params[:id])
+    review.destroy
+    if @movie.reviews.count == 0
+      redirect_to @movie, alert: "Review successfully deleted!"
+    else
+      redirect_to movie_reviews_path(@movie), alert: "Review successfully deleted!"
+    end
+  end
+
   private
 
   def set_movie

@@ -34,10 +34,10 @@
   </p>
 
   <p>
-    <%= link_to pluralize(@movie.reviews.count, "review"),
+    <% unless @movie.unreviewed? %>
+      <%= link_to pluralize(@movie.reviews.count, "review"),
             movie_reviews_path(@movie) %>
 
-    <% if @movie.reviews.any? %>
       <%= render "shared/list_reviews", reviews: @movie.recent_reviews(2) %>
     <% end %>
   </p>
