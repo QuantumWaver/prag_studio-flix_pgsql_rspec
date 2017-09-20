@@ -36,12 +36,24 @@ class Movie < ApplicationRecord
   end
 
   # INSTANCE METHODS
+  def recent_reviews(num)
+    reviews.order(updated_at: :desc).limit(num)
+  end
+
   def flop?
     total_gross.blank? || total_gross < 50000000
   end
 
   def new?
     id.nil?
+  end
+
+  def average_stars
+    reviews.average(:stars)
+  end
+
+  def unreviewed?
+    reviews.count.zero?
   end
 
 end

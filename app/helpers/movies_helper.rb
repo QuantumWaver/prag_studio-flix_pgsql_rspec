@@ -24,4 +24,13 @@ module MoviesHelper
     movie.new? ? movies_path : movie_path(movie)
   end
 
+  def format_average_stars(movie)
+    if movie.unreviewed?
+      content_tag(:strong, 'No reviews yet!')
+    else
+      content_tag(:strong,
+        pluralize(number_with_precision(movie.average_stars, precision: 1), 'star'))
+    end
+  end
+
 end

@@ -28,9 +28,18 @@
     <%= format_total_gross(@movie) %>
   </p>
 
+  <h3>Average Stars</h3>
+  <p>
+    <%= format_average_stars(@movie) %>
+  </p>
+
   <p>
     <%= link_to pluralize(@movie.reviews.count, "review"),
             movie_reviews_path(@movie) %>
+
+    <% if @movie.reviews.any? %>
+      <%= render "shared/list_reviews", reviews: @movie.recent_reviews(2) %>
+    <% end %>
   </p>
 
   <div>

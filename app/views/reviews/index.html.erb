@@ -2,15 +2,5 @@
   <h1>Reviews for <%= link_to(@movie.title, @movie) %></h1>
 </header>
 
-<ol id="reviews">
-  <% @reviews.each do |review| %>
-    <li>
-      <span class="review"><%= pluralize(review.stars, 'star') %></span>
-      <span class="user">by <%= review.name %></span>
-      <span class="date"> | last updated <%= time_ago_in_words(review.updated_at) %> ago</span>
-      <p>
-        &quot;<%= review.comment %>&quot;
-      </p>
-    </li>
-  <% end %>
-</ol>
+<%= render "shared/list_reviews", reviews: @reviews %>
+
