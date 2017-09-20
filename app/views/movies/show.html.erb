@@ -29,10 +29,13 @@
   </p>
 
   <p>
-    <%= link_to pluralize(@movie.reviews.size, "review"),
+    <%= link_to pluralize(@movie.reviews.count, "review"),
             movie_reviews_path(@movie) %>
   </p>
-  <%= link_to 'Write Review', new_movie_review_path(@movie), class: 'button ok review' %>
+
+  <div>
+    <%= render "shared/review_form" %>
+  </div>
 
   <footer>
     <nav>
