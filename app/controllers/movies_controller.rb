@@ -60,7 +60,7 @@ class MoviesController < ApplicationController
               :cast,
               :director,
               :duration,
-              :image_file_name )
+              :image )
 
     # this will return an empty hash if the ':movie' param is not present
     #params.fetch(:movie, {}).

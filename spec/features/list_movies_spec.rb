@@ -8,7 +8,8 @@ describe "Viewing the list of movies" do
                       total_gross: 318412101.00,
                       duration: "101 min",
                       description: "Tony Stark builds an armored suit to fight the throes of evil",
-                      released_on: "2008-05-02")
+                      released_on: "2008-05-02",
+                      image: open("#{Rails.root}/app/assets/images/ironman.jpg") )
 
     movie2 = Movie.create(title: "Superman",
                           rating: "PG",
@@ -29,6 +30,7 @@ describe "Viewing the list of movies" do
     expect(page).to have_text(movie1.title)
     expect(page).to have_text(movie2.title)
     expect(page).to have_text(movie3.title)
+    expect(page).to have_selector("img[src$='#{movie1.image.url}']")
 
     expect(page).to have_text(movie1.rating)
     expect(page).to have_text(movie1.description[0..10])

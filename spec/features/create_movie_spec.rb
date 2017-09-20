@@ -19,7 +19,7 @@ describe "Creating a movie" do
     fill_in "Director", with: "The ever-creative director"
     fill_in "Duration", with: "123 min"
     fill_in "Description", with: "desc" * 24
-    fill_in "Image file name", with: "placeholder.png"
+    attach_file "Image", "#{Rails.root}/app/assets/images/ironman.jpg"
 
     click_button 'Create Movie'
     expect(current_path).to eq(movie_path(Movie.last))

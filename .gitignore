@@ -26,6 +26,7 @@
 
 # Ignore Public Uploads
 /public/uploads
+/public/system
 
 /config/.DS_Store
 *.DS_Store

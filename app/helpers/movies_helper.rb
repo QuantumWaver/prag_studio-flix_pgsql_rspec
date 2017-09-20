@@ -16,7 +16,7 @@ module MoviesHelper
   end
 
   def image_for(movie)
-    file = movie.image_file_name.blank? ? 'placeholder.png' : movie.image_file_name
+    file = movie.has_image? ? movie.image.url : 'placeholder.png'
     image_tag(file)
   end
 

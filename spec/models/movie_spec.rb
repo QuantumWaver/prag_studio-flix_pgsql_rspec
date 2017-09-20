@@ -56,23 +56,23 @@ describe "A Movie" do
       expect(movie.errors[:total_gross].any?).to eq(true)
     end
 
-    it "accepts properly formatted image file names" do
-      file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
-      file_names.each do |file_name|
-        movie = Movie.new(image_file_name: file_name)
-        movie.valid?
-        expect(movie.errors[:image_file_name].any?).to eq(false)
-      end
-    end
+    # it "accepts properly formatted image file names" do
+    #   file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
+    #   file_names.each do |file_name|
+    #     movie = Movie.new(image_file_name: file_name)
+    #     movie.valid?
+    #     expect(movie.errors[:image_file_name].any?).to eq(false)
+    #   end
+    # end
 
-    it "rejects improperly formatted image file names" do
-      file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
-      file_names.each do |file_name|
-        movie = Movie.new(image_file_name: file_name)
-        movie.valid?
-        expect(movie.errors[:image_file_name].any?).to eq(true)
-      end
-    end
+    # it "rejects improperly formatted image file names" do
+    #   file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
+    #   file_names.each do |file_name|
+    #     movie = Movie.new(image_file_name: file_name)
+    #     movie.valid?
+    #     expect(movie.errors[:image_file_name].any?).to eq(true)
+    #   end
+    # end
 
     it "accepts any rating that is in an approved list" do
       ratings = %w[G PG PG-13 R NC-17]
