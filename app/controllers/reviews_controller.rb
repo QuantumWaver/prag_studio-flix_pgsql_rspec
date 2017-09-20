@@ -20,6 +20,22 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit
+    @review = @movie.reviews.find(params[:id])
+  end
+
+  def update
+    @review = @movie.reviews.find(params[:id])
+    if @review.update(review_params)
+      # redirect and set the flash message
+      redirect_to movie_reviews_path(@movie, @review), notice: "Review successfully updated!"
+     else
+      # by rendering, and not redirecting, we preserve all
+      # the valid data that was entered
+      render :edit
+    end
+  end
+
   def destroy
     review = @movie.reviews.find(params[:id])
     review.destroy

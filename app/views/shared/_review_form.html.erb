@@ -24,7 +24,7 @@
       </li>
     </ol>
     <p>
-      <%= f.submit 'Post Review' %>
+      <%= f.submit format_review_button(@review) %>
       <%= link_to "Cancel", @movie, class: 'button' %>
     </p>
   </fieldset>
