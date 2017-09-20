@@ -22,6 +22,7 @@ Movie.create!([
     title: "Star Wars",
     rating: "PG",
     total_gross: 134218018.00,
+    duration: "126 min",
     description: "Luke, Han, Chewie, and Leia battle the Empire!",
     released_on: "1977-07-15"
   },
@@ -29,6 +30,7 @@ Movie.create!([
     title: "Serenity",
     rating: "PG-13",
     total_gross: 403706375.00,
+    duration: "126 min",
     description: " Malcum Reynolds and crew pilot a Firefly class ship called Serenity",
     released_on: "2002-05-03"
   },
@@ -47,6 +49,7 @@ Movie.create!([
     title: "Blade Runner",
     rating: "R",
     total_gross: 413452101.00,
+    duration: "126 min",
     description: "Harrison Ford plays a dude named Decker, I think, and hunts fucking replicants or some such shit",
     released_on: "1982-01-21"
   }
