@@ -19,12 +19,15 @@ Movie.create!([
     image_file_name: "ironman.jpg"
   },
   {
-    title: "Star Wars",
+    title: "Star Wars: The Empire Strikes Back",
     rating: "PG",
-    total_gross: 134218018.00,
-    duration: "126 min",
-    description: "Luke, Han, Chewie, and Leia battle the Empire!",
-    released_on: "1977-07-15"
+    total_gross: 192012121.00,
+    duration: "124 min",
+    cast: "Mark Hamill, Harrison Ford, Carrie Fisher",
+    director: "Irvin Kershner",
+    description: "Once again Luke, Han, Leia, and Chewie battle the empire, but this time Han gets his ass frozen in carbonite!",
+    released_on: "1980-05-20",
+    image_file_name: "empire_strikes_back.jpg"
   },
   {
     title: "Serenity",
@@ -46,12 +49,15 @@ Movie.create!([
     image_file_name: "catwoman.jpg"
   },
   {
-    title: "Blade Runner",
-    rating: "R",
-    total_gross: 413452101.00,
+    title: "Star Wars: The Force Awakens",
+    rating: "PG-13",
+    total_gross: 121010001.00,
     duration: "126 min",
-    description: "Harrison Ford plays a dude named Decker, I think, and hunts fucking replicants or some such shit",
-    released_on: "1982-01-21"
+    cast: "Daisy Ridley, John Boyega, Oscar Isaac",
+    director: "J.J. Abrams",
+    description: "Three decades after the Empire's defeat, a new threat arises in the militant First Order. Stormtrooper defector Finn and spare parts scavenger Rey are caught up in the Resistance's search for the missing Luke Skywalker.",
+    released_on: "2015-12-15",
+    image_file_name: "force_awakens.jpg"
   }
 ])
 
@@ -63,3 +69,8 @@ movie.reviews.create!(name: "Peter Travers", stars: 4, location: "Garrett, IN", 
 
 movie = Movie.find_by(title: 'Serenity')
 movie.reviews.create!(name: "Elvis Mitchell", stars: 5, location: "Jackson Hole, WY", comment: "It's a bird, it's a plane, it's a blockbuster!")
+
+movie = Movie.find_by(title: 'Star Wars: The Force Awakens')
+movie.reviews.create!(name: "Jeff", stars: 5, location: "Jackson Hole, WY", comment: "I loved it, though Rey was a bit overpowered.")
+movie.reviews.create!(name: "Jake P McGrew", stars: 5, location: "Jackson Hole, WY", comment: "Overall it was a good movie, though I am sexually attracted to Poe!")
+movie.reviews.create!(name: "Drew Etienne", stars: 5, location: "Jackson Hole, WY", comment: "A great movie, but it sucks they did away with the old canon!")
