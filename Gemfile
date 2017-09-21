@@ -46,6 +46,9 @@ group :development, :test do
   # rspec
   gem 'rspec-rails'
 
+  # Development ENV variables
+  gem 'dotenv-rails'
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'

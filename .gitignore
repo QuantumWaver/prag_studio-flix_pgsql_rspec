@@ -32,3 +32,4 @@
 *.DS_Store
 
 aws_creds
+.env
