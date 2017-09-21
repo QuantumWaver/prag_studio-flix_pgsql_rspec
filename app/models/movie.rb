@@ -2,7 +2,11 @@ class Movie < ApplicationRecord
   # This declaration tells Rails to expect a 'movie_id'
   # foreign key column in the table wrapped by the Review model
   has_many :reviews, dependent: :destroy
-  has_attached_file :image
+  has_attached_file :image, styles: {
+    small: "90x133>",
+    thumb: "50x50>",
+    large: "182x268>"
+  } # the > option tells ImageMagick to proportionally reduce the size of the image.
 
   RATINGS = %w(G PG PG-13 R NC-17)
 

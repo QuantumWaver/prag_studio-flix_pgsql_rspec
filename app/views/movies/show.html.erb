@@ -1,6 +1,6 @@
 <article id="movie" class="movie">
   <header>
-    <%= image_for(@movie) %>
+    <%= image_for(@movie, :large) %>
     <h1><%= @movie.title %></h1>
     <h2>Released: <%= format_release_date(@movie) %></h2>
   </header>
