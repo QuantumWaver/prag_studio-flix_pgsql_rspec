@@ -3,9 +3,9 @@ require 'rails_helper'
 describe "A Movie" do
 
   it "is valid with example attributes" do
-      movie = Movie.new(movie_attributes)
-      expect(movie.valid?).to eq(true)
-    end
+    movie = Movie.new(movie_attributes)
+    expect(movie.valid?).to eq(true)
+  end
 
   describe "has validation as it" do
     it "requires a title" do
@@ -56,23 +56,12 @@ describe "A Movie" do
       expect(movie.errors[:total_gross].any?).to eq(true)
     end
 
-    # it "accepts properly formatted image file names" do
-    #   file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
-    #   file_names.each do |file_name|
-    #     movie = Movie.new(image_file_name: file_name)
-    #     movie.valid?
-    #     expect(movie.errors[:image_file_name].any?).to eq(false)
-    #   end
-    # end
-
-    # it "rejects improperly formatted image file names" do
-    #   file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
-    #   file_names.each do |file_name|
-    #     movie = Movie.new(image_file_name: file_name)
-    #     movie.valid?
-    #     expect(movie.errors[:image_file_name].any?).to eq(true)
-    #   end
-    # end
+    it "attributes of image are set" do
+      movie = Movie.new(movie_attributes)
+      expect(movie).to be_valid
+      expect(movie.image_content_type).to eq('image/jpeg')
+      expect(movie.image_file_size).to eq(9511)
+    end
 
     it "accepts any rating that is in an approved list" do
       ratings = %w[G PG PG-13 R NC-17]
