@@ -30,7 +30,7 @@ describe "Viewing the list of movies" do
     expect(page).to have_text(movie1.title)
     expect(page).to have_text(movie2.title)
     expect(page).to have_text(movie3.title)
-    expect(page).to have_selector("img[src$='#{movie1.image.url}']")
+    expect(page).to have_selector("img[src$='#{movie1.image.url(:small)}']")
 
     expect(page).to have_text(movie1.rating)
     expect(page).to have_text(movie1.description[0..10])
