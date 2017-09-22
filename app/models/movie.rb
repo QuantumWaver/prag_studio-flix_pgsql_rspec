@@ -54,10 +54,6 @@ class Movie < ApplicationRecord
     return false
   end
 
-  def new?
-    id.nil?
-  end
-
   def has_image?
     image.exists?
   end

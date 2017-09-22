@@ -21,7 +21,7 @@ module MoviesHelper
   end
 
   def cancel_form_path(movie)
-    movie.new? ? movies_path : movie_path(movie)
+    movie.new_record? ? movies_path : movie_path(movie)
   end
 
   def format_average_stars(movie)

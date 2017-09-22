@@ -13,6 +13,7 @@
  *= require layout
  *= require elements
  *= require movies
+ *= require users
  *= require buttons
  *= require forms
 */
