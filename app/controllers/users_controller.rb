@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in(@user)
       redirect_to @user, notice: "Thanks for signing up!"
     else
       render :new
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    log_out
     redirect_to root_url, alert: "User account successfully deleted!"
   end
 

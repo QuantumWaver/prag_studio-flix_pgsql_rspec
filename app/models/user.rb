@@ -17,6 +17,12 @@ class User < ApplicationRecord
                        format: { with: VALID_USERNAME_REGEX },
                        uniqueness: { case_sensitive: false }
 
+  class << self
+    def authenticate(login, password)
+      user = User.find_by(email: login.downcase) || User.find_by(username: login.downcase)
+      user && user.authenticate(password)
+    end
+  end
 
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)

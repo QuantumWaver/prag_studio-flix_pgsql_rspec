@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   # get 'movies/:id/edit', to: 'movies#edit', as: 'edit_movie'
   # patch 'movies/:id', to: 'movies#update'
 
+  # a singular resource, so no :id params needed in route
+  get 'signin', to: 'sessions#new'
+  resource :session, only: [:create, :destroy]
+
   # This will give us nested routes like:
   #  /movies/:movie_id/reviews
   resources :movies do
