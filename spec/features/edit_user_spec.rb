@@ -7,6 +7,7 @@ describe "Editing a User" do
   end
 
   it "updates the User and shows the User's updated details" do
+    sign_in(@user)
     visit user_url(@user)
     click_link 'Edit Account'
 
@@ -28,6 +29,7 @@ describe "Editing a User" do
   end
 
   it "does not save the user if it's invalid" do
+    sign_in(@user)
     visit edit_user_url(@user)
 
     fill_in 'Name', with: " "
@@ -41,6 +43,7 @@ describe "Editing a User" do
   end
 
   it "if password present, doesn't save unless match" do
+    sign_in(@user)
     visit edit_user_url(@user)
 
     fill_in 'Name', with: "Geddy Lee"

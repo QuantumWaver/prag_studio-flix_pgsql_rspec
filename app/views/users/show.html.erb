@@ -1,7 +1,12 @@
 <article id="user">
   <header>
     <%= profile_image_for(@user) %>
-    <h1><%= @user.name %></h1>
+    <h1>
+      <%= @user.name %>
+      <% if @user.admin? %>
+        (admin)
+      <% end %>
+    </h1>
     <h2>Username: <%= @user.username %></h2>
     <h2><%= mail_to(@user.email) %></h2>
     <h2>
@@ -10,11 +15,15 @@
   </header>
   <footer>
     <nav>
-      <%= link_to 'Edit Account', edit_user_path(@user), class: 'button' %>
-      <%= link_to 'Delete Account', @user,
-                  method: :delete,
-                  data: { confirm: 'Are you sure you want to permanently delete your account?' },
-                  class: 'button' %>
+      <% if current_user?(@user) %>
+        <%= link_to 'Edit Account', edit_user_path(@user), class: 'button' %>
+      <% end %>
+      <% if current_user_admin? %>
+        <%= link_to 'Delete Account', @user,
+                    method: :delete,
+                    data: { confirm: 'Are you sure you want to permanently delete your account?' },
+                    class: 'button' %>
+      <% end %>
     </nav>
   </footer>
 </article>

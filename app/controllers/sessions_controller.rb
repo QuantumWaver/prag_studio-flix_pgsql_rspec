@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate(params[:login], params[:password])
       log_in(user)
-      redirect_to user, notice: "Welcome back, #{user.username}!"
+      flash.now[:notice] = "Welcome back, #{user.username}!"
+      redirect_back_or_to user
     else
       flash.now[:alert] = "Invalid login/password combination!"
       render :new

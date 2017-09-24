@@ -5,6 +5,7 @@ describe "Showing the user" do
   it "shows the user's details" do
     user = User.create!(user_attributes(name: "Geddy", email: "geddy@rush.com", username: "bassy"))
 
+    sign_in(user)
     visit user_url(user)
 
     expect(page).to have_text(user.name)

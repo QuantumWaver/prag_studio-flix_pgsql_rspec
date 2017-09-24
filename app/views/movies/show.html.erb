@@ -48,10 +48,12 @@
 
   <footer>
     <nav>
-      <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
-      <%= link_to 'Delete', @movie,
-                  class: 'button',
-                  method: :delete, data: { confirm: 'Are you sure ass fuck??' } %>
+      <% if current_user_admin? %>
+        <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
+        <%= link_to 'Delete', @movie,
+                    class: 'button',
+                    method: :delete, data: { confirm: 'Are you sure ass fuck??' } %>
+      <% end %>
     </nav>
   </footer>
 </article>

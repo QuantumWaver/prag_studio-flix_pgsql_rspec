@@ -74,3 +74,14 @@ movie = Movie.find_by(title: 'Star Wars: The Force Awakens')
 movie.reviews.create!(name: "Jeff", stars: 5, location: "Jackson Hole, WY", comment: "I loved it, though Rey was a bit overpowered.")
 movie.reviews.create!(name: "Jake P McGrew", stars: 5, location: "Jackson Hole, WY", comment: "Overall it was a good movie, though I am sexually attracted to Poe!")
 movie.reviews.create!(name: "Drew Etienne", stars: 5, location: "Jackson Hole, WY", comment: "A great movie, but it sucks they did away with the old canon!")
+
+User.create!([
+  {
+    name: "Geddy Lee",
+    username: "ged",
+    email: "ged@rush.com",
+    password: "geddylee",
+    password_confirmation: "geddylee",
+    admin: true
+  }
+])

@@ -4,6 +4,8 @@ describe "Navigating movies" do
 
   before do
     @movie = Movie.create(movie_attributes)
+    @admin = User.create!(user_attributes(admin: true))
+    sign_in(@admin)
   end
 
   it "allows navigation from the detail page to the listing page" do

@@ -4,9 +4,11 @@
       <li class="all-movies">
         <%= link_to 'All Movies', movies_path, class: 'button' %>
       </li>
-      <li class="create-movie">
-        <%= link_to 'Add New Movie', new_movie_path, class: 'button' %>
-      </li>
+      <% if current_user_admin? %>
+        <li class="create-movie">
+          <%= link_to 'Add New Movie', new_movie_path, class: 'button' %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </aside>

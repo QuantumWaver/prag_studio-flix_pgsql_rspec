@@ -38,6 +38,14 @@ describe "Signing in a User" do
     expect(page).to have_link('Sign Out')
   end
 
+  it "successful sign in will redirect you to intended page" do
+    visit edit_user_path(@user)
+    expect(current_path).to eq(signin_path)
+
+    sign_in(@user)
+    expect(current_path).to eq(edit_user_path(@user))
+  end
+
   it "does not sign in user if email/password combo is invalid" do
     visit signin_url
 
