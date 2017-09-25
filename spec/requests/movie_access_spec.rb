@@ -31,7 +31,7 @@ describe "Movie access:" do
 
     it "cannot update a movie" do
       expect {
-        update_movie(new_title: "FooBar")
+        update_movie(title: "FooBar")
       }.not_to change(@movie, :title)
       expect(response).to redirect_to(root_url)
     end
@@ -81,13 +81,13 @@ describe "Movie access:" do
 
     it "can update a movie" do
       expect {
-        update_movie(new_title: "FooBar")
+        update_movie(title: "FooBar")
       }.not_to change(@movie, :title)
       expect(response).to redirect_to(signin_url)
 
       sign_in(@admin, spec_type: :request)
       expect {
-        update_movie(new_title: "FooBar")
+        update_movie(title: "FooBar")
       }.to change(@movie, :title).to("FooBar")
     end
 
@@ -109,8 +109,8 @@ private
     post movies_path, params: {movie: movie_attributes(title: "Foobar", image: nil)}
   end
 
-  def update_movie(new_title:)
-    patch movie_path(@movie), params: {movie: {title: new_title} }
+  def update_movie(attributes)
+    patch movie_path(@movie), params: {movie: attributes}
     @movie.reload
   end
 

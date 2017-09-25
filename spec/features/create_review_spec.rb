@@ -3,15 +3,16 @@ require 'rails_helper'
 describe "Creating a Review" do
 
   before do
-    @movie = Movie.create(movie_attributes)
+    @movie = Movie.create!(movie_attributes)
+    @user = User.create!(user_attributes)
+    sign_in(@user)
   end
 
   it "creates the review with the review's details" do
     visit new_movie_review_path(@movie)
 
-    expect(find_field('Name').value).to be_nil
+    expect(find_field('Location').value).to be_nil
 
-    fill_in 'Name', with: "Kevin Moore"
     choose'review_stars_3'
     fill_in "Location", with: "Iowa City, IA"
     fill_in "Comment", with: "I hated this movie!"
@@ -24,7 +25,6 @@ describe "Creating a Review" do
   it "can be done directly from the Movie's show page" do
     visit movie_path(@movie)
 
-    fill_in 'Name', with: "Kevin Moore"
     choose'review_stars_3'
     fill_in "Location", with: "Iowa City, IA"
     fill_in "Comment", with: "I hated this movie!"
@@ -36,8 +36,6 @@ describe "Creating a Review" do
 
   it "does not save the review if it's invalid" do
     visit new_movie_review_path(@movie)
-
-    fill_in 'Name', with: "Kevin Moore"
 
     expect {
       click_button 'Post Review'

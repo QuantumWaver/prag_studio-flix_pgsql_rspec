@@ -61,27 +61,33 @@ Movie.create!([
   }
 ])
 
-# Create some reviews
-movie = Movie.find_by(title: 'Iron Man')
-movie.reviews.create!(name: "Roger Ebert", stars: 3, location: "Garrett, IN", comment: "I laughed, I cried, I spilled my popcorn!")
-movie.reviews.create!(name: "Gene Siskel", stars: 5, location: "Cincinnati, OH", comment: "I'm a better reviewer than he is.")
-movie.reviews.create!(name: "Peter Travers", stars: 4, location: "Garrett, IN", comment: "It's been years since a movie superhero was this fierce and this funny.")
-
-movie = Movie.find_by(title: 'Serenity')
-movie.reviews.create!(name: "Elvis Mitchell", stars: 5, location: "Jackson Hole, WY", comment: "It's a bird, it's a plane, it's a blockbuster!")
-
-movie = Movie.find_by(title: 'Star Wars: The Force Awakens')
-movie.reviews.create!(name: "Jeff", stars: 5, location: "Jackson Hole, WY", comment: "I loved it, though Rey was a bit overpowered.")
-movie.reviews.create!(name: "Jake P McGrew", stars: 5, location: "Jackson Hole, WY", comment: "Overall it was a good movie, though I am sexually attracted to Poe!")
-movie.reviews.create!(name: "Drew Etienne", stars: 5, location: "Jackson Hole, WY", comment: "A great movie, but it sucks they did away with the old canon!")
-
+# Create some Users
 User.create!([
   {
     name: "Geddy Lee",
     username: "ged",
     email: "ged@rush.com",
-    password: "geddylee",
-    password_confirmation: "geddylee",
+    password: "foobar",
+    password_confirmation: "foobar",
     admin: true
+  },
+  {
+    name: "Alex Lifeson",
+    username: "alex",
+    email: "alex@rush.com",
+    password: "foobar",
+    password_confirmation: "foobar",
+    admin: false
   }
 ])
+
+# Create some reviews
+ged = User.find_by(username: 'ged')
+alex = User.find_by(username: 'alex')
+movie = Movie.find_by(title: 'Iron Man')
+movie.reviews.create!(user_id: ged.id, stars: 3, location: "Garrett, IN", comment: "I laughed, I cried, I spilled my popcorn!")
+movie.reviews.create!(user_id: alex.id, stars: 5, location: "Cincinnati, OH", comment: "I'm a better reviewer than he is.")
+
+movie = Movie.find_by(title: 'Star Wars: The Force Awakens')
+movie.reviews.create!(user_id: ged.id, stars: 5, location: "Jackson Hole, WY", comment: "I loved it, though Rey was a bit overpowered.")
+movie.reviews.create!(user_id: alex.id, stars: 5, location: "Jackson Hole, WY", comment: "Overall it was a good movie, though I am sexually attracted to Poe!")

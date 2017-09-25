@@ -4,9 +4,10 @@ module UsersHelper
     user.new_record? ? 'Create Account' : 'Update Account'
   end
 
-  def profile_image_for(user)
-    url = "https://secure.gravatar.com/avatar/#{user.gravatar_id}"
-    image_tag(url, alt: user.name)
+  def profile_image_for(user, options={})
+    size = options[:size] || 80
+    url = "https://secure.gravatar.com/avatar/#{user.gravatar_id}?s=#{size}"
+    image_tag(url, alt: user.username)
   end
 
   def password_required?(user)

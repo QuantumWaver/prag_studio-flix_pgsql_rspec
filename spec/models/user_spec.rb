@@ -7,6 +7,23 @@ describe "A User" do
     expect(user.valid?).to eq(true)
   end
 
+  it "has reviews" do
+    user = User.new(user_attributes)
+    movie1 = Movie.new(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.new(movie_attributes(title: "Superman"))
+
+    review1 = movie1.reviews.new(stars: 5, location: "Garrett", comment: "Two thumbs up!")
+    review1.user = user
+    review1.save!
+
+    review2 = movie2.reviews.new(stars: 3, location: "Garrett", comment: "Cool!")
+    review2.user = user
+    review2.save!
+
+    expect(user.reviews).to include(review1)
+    expect(user.reviews).to include(review2)
+  end
+
   describe "has validation: it" do
     before do
       @new_user = User.new(user_attributes)

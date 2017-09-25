@@ -3,10 +3,12 @@ require 'rails_helper'
 describe "Deleting a review" do
 
   it "deletes the review and redirects movie show page if no more reviews" do
+    user = User.create!(user_attributes)
+    sign_in(user)
 
     movie = Movie.create(movie_attributes)
-    review1 = movie.reviews.create(review_attributes(name: "Jake"))
-    review2 = movie.reviews.create(review_attributes(name: "Kevin"))
+    review1 = movie.reviews.create(review_attributes(user: user))
+    review2 = movie.reviews.create(review_attributes(user: user))
 
     visit movie_reviews_path(movie)
 

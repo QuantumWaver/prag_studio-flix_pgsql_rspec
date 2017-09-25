@@ -102,9 +102,10 @@ describe "A Movie" do
 
   it "is not a flop if the total gross is less than $50M and has cult following" do
     movie = Movie.create(movie_attributes(total_gross: 49000000.00))
+    user = User.create!(user_attributes)
 
     1.upto(50) do
-      movie.reviews.create(review_attributes(stars: rand(4..5)))
+      movie.reviews.create(review_attributes(stars: rand(4..5), user: user))
     end
 
     expect(movie.flop?).to eq(false)
@@ -131,12 +132,15 @@ describe "A Movie" do
   end
 
   describe "with Reviews" do
+    before do
+      @user = User.create!(user_attributes)
+    end
 
     it "can have many reviews" do
       movie = Movie.new(movie_attributes)
 
-      review1 = movie.reviews.new(review_attributes)
-      review2 = movie.reviews.new(review_attributes)
+      review1 = movie.reviews.new(review_attributes(user: @user))
+      review2 = movie.reviews.new(review_attributes(user: @user))
 
       expect(movie.reviews).to include(review1)
       expect(movie.reviews).to include(review2)
@@ -145,7 +149,7 @@ describe "A Movie" do
     it "deletes all associated reviews" do
       movie = Movie.create(movie_attributes)
 
-      movie.reviews.create(review_attributes)
+      movie.reviews.create(review_attributes(user: @user))
 
       expect {
         movie.destroy
@@ -155,11 +159,11 @@ describe "A Movie" do
     it "calculates the average stars" do
       movie = Movie.create(movie_attributes)
 
-      movie.reviews.create(review_attributes(stars: 5))
-      movie.reviews.create(review_attributes(stars: 3))
-      movie.reviews.create(review_attributes(stars: 1))
-      movie.reviews.create(review_attributes(stars: 2))
-      movie.reviews.create(review_attributes(stars: 4))
+      movie.reviews.create(review_attributes(stars: 5, user: @user))
+      movie.reviews.create(review_attributes(stars: 3, user: @user))
+      movie.reviews.create(review_attributes(stars: 1, user: @user))
+      movie.reviews.create(review_attributes(stars: 2, user: @user))
+      movie.reviews.create(review_attributes(stars: 4, user: @user))
 
       expect(movie.average_stars).to eq(3)
     end

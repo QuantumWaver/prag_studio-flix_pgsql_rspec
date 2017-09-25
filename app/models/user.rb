@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_\.]*\z/
 
+  has_many :reviews, dependent: :destroy
+
   has_secure_password
 
   before_save :downcase_email

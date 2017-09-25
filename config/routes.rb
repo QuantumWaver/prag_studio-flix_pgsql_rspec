@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   # This will give us nested routes like:
   #  /movies/:movie_id/reviews
   resources :movies do
-    resources :reviews
+    resources :reviews, except: [:show]
   end
 
   get 'signup', to: 'users#new'

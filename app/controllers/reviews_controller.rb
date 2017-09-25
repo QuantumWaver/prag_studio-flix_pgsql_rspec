@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
-
+  before_action :require_signin, except: [:index]
   before_action :set_movie
+  before_action :require_correct_user, only: [:edit, :update, :destroy]
 
   def index
     @reviews = @movie.reviews.order(updated_at: :desc)
@@ -12,6 +13,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @movie.reviews.build(review_params)
+    @review.user = current_user
     if @review.save
       redirect_to movie_reviews_path(@movie),
           notice: "Review successfully posted!"
@@ -21,11 +23,9 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = @movie.reviews.find(params[:id])
   end
 
   def update
-    @review = @movie.reviews.find(params[:id])
     if @review.update(review_params)
       # redirect and set the flash message
       redirect_to movie_reviews_path(@movie, @review), notice: "Review successfully updated!"
@@ -37,8 +37,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    review = @movie.reviews.find(params[:id])
-    review.destroy
+    @review.destroy
     if @movie.reviews.count == 0
       redirect_to @movie, alert: "Review successfully deleted!"
     else
@@ -48,6 +47,13 @@ class ReviewsController < ApplicationController
 
   private
 
+  # Confirms the correct user by checking the user given by the request in the params
+  # with the current signed in user
+  def require_correct_user
+    @review = @movie.reviews.find(params[:id])
+    redirect_to(root_url) unless current_user?(@review.user)
+  end
+
   def set_movie
     @movie = Movie.find(params[:movie_id])
   end
@@ -55,10 +61,7 @@ class ReviewsController < ApplicationController
   def review_params
      # this will throw an exception if ':review' param is not present
     params.require(:review).
-      permit( :name,
-              :stars,
-              :location,
-              :comment )
+      permit(:stars, :location, :comment)
   end
 
 end

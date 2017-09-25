@@ -8,17 +8,18 @@ describe "A Review" do
     expect(review.movie).to eq(movie)
   end
 
-  it "with example attributes is valid" do
-    movie = Movie.create(movie_attributes)
-    review = Review.new(review_attributes)
-    review.movie = movie
-    expect(review.valid?).to eq(true)
+  it "belongs to a user" do
+    user = User.create(user_attributes)
+    review = user.reviews.new(review_attributes)
+    expect(review.user).to eq(user)
   end
 
-  it "requires a name" do
-    review = Review.new(name: "")
-    review.valid? # populates errors
-    expect(review.errors[:name].any?).to eq(true)
+  it "with example attributes is valid" do
+    user = User.create(user_attributes)
+    movie = Movie.create(movie_attributes)
+    review = Review.new(review_attributes(user: user))
+    review.movie = movie
+    expect(review.valid?).to eq(true)
   end
 
   it "requires a comment" do
