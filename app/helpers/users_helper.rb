@@ -9,4 +9,8 @@ module UsersHelper
     image_tag(url, alt: user.name)
   end
 
+  def password_required?(user)
+    true if user.new_record?
+  end
+
 end

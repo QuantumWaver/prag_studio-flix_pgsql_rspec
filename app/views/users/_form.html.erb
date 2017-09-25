@@ -17,11 +17,11 @@
       </li>
       <li class="required">
         <%= f.label :password %>
-        <%= f.password_field :password, size: 40 %>
+        <%= f.password_field :password, size: 40, required:password_required?(@user) %>
       </li>
       <li class="required">
         <%= f.label :password_confirmation, "Confirm Password" %>
-        <%= f.password_field :password_confirmation, size: 40%>
+        <%= f.password_field :password_confirmation, size: 40, required: password_required?(@user) %>
       </li>
     </ol>
     <p>
