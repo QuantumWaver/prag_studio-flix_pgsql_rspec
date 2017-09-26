@@ -45,10 +45,6 @@ describe "Reviews access, a user" do
 
   context "when signed in" do
     before do
-      @other_user = User.create!(user_attributes(name: "Ged", username: "ged", email: "ged@rush.com"))
-      @other_review = @movie.reviews.new(review_attributes)
-      @other_review.user = @other_user
-      @other_review.save
       sign_in(@user, spec_type: :request)
     end
 
@@ -80,23 +76,32 @@ describe "Reviews access, a user" do
       }.to change(Review, :count).by(-1)
     end
 
-    it "cannot access edit page of another user's review" do
-      get edit_movie_review_path(@movie, @other_review)
-      expect(response).to redirect_to(root_url)
-    end
+    context "is restricted from" do
+      before do
+        @other_user = User.create!(user_attributes(name: "Ged", username: "ged", email: "ged@rush.com"))
+        @other_review = @movie.reviews.new(review_attributes)
+        @other_review.user = @other_user
+        @other_review.save
+      end
 
-    it "cannot update another user's review" do
-      expect {
-        update_review(@other_review, comment: "MovieFooBoar")
-      }.not_to change(@other_review, :comment)
-      expect(response).to redirect_to(root_url)
-    end
+      it "acccessing edit page of another user's review" do
+        get edit_movie_review_path(@movie, @other_review)
+        expect(response).to redirect_to(root_url)
+      end
 
-    it "cannot delete another user's review" do
-      expect {
-        delete movie_review_path(@movie, @other_review)
-      }.not_to change(Review, :count)
-      expect(response).to redirect_to(root_url)
+      it "updating another user's review" do
+        expect {
+          update_review(@other_review, comment: "MovieFooBoar")
+        }.not_to change(@other_review, :comment)
+        expect(response).to redirect_to(root_url)
+      end
+
+      it "deleting another user's review" do
+        expect {
+          delete movie_review_path(@movie, @other_review)
+        }.not_to change(Review, :count)
+        expect(response).to redirect_to(root_url)
+      end
     end
   end
 
