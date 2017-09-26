@@ -13,6 +13,27 @@
     <%= @movie.rating %> &bull; <%= @movie.duration %>
   </h3>
 
+  <p>
+    <% if logged_in? %>
+      <% if @current_favorite %>
+        <%= button_to "Unfave", movie_favorite_path(@movie, @current_favorite), method: :delete, class: "button unfave" %>
+      <% else %>
+        <%= button_to "Fave", movie_favorites_path(@movie), class: "button fave" %>
+      <% end %>
+    <% end %>
+
+    <% if @fans.any? %>
+      <h3><%= pluralize(@fans.size, 'Fan') %></h3>
+      <ul>
+        <% @fans.each do |user| %>
+          <li>
+            <%= link_to user.name, user %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </p>
+
   <h3>Cast</h3>
   <p>
     <%= @movie.cast %>

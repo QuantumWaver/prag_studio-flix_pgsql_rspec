@@ -81,13 +81,16 @@ User.create!([
   }
 ])
 
-# Create some reviews
+# Create some reviews and fans
 ged = User.find_by(username: 'ged')
 alex = User.find_by(username: 'alex')
 movie = Movie.find_by(title: 'Iron Man')
 movie.reviews.create!(user_id: ged.id, stars: 3, location: "Garrett, IN", comment: "I laughed, I cried, I spilled my popcorn!")
 movie.reviews.create!(user_id: alex.id, stars: 5, location: "Cincinnati, OH", comment: "I'm a better reviewer than he is.")
+movie.fans << alex
 
 movie = Movie.find_by(title: 'Star Wars: The Force Awakens')
 movie.reviews.create!(user_id: ged.id, stars: 5, location: "Jackson Hole, WY", comment: "I loved it, though Rey was a bit overpowered.")
 movie.reviews.create!(user_id: alex.id, stars: 5, location: "Jackson Hole, WY", comment: "Overall it was a good movie, though I am sexually attracted to Poe!")
+movie.fans << alex
+movie.fans << ged

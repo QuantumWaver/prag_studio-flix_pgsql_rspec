@@ -24,7 +24,21 @@ describe "A User" do
     expect(user.reviews).to include(review2)
   end
 
-  describe "has validation: it" do
+  context "with favorites" do
+    it "can have many favorite movies" do
+      user = User.new(user_attributes)
+      movie1 = Movie.new(movie_attributes)
+      movie2 = Movie.new(movie_attributes(title: "Serenity"))
+
+      user.favorites.new(movie: movie1)
+      user.favorites.new(movie: movie2)
+
+      expect(user.favorite_movies).to include(movie1)
+      expect(user.favorite_movies).to include(movie2)
+    end
+  end
+
+  context "has validation: it" do
     before do
       @new_user = User.new(user_attributes)
       @other_user = User.create!(user_attributes(name: "Alex", username: "alex", email: "alex@rush.com"))
@@ -158,7 +172,7 @@ describe "A User" do
     end
   end
 
-  describe "authenticate" do
+  context "authenticate" do
     before do
       @user = User.create!(user_attributes)
     end

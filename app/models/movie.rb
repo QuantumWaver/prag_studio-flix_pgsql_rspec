@@ -2,6 +2,11 @@ class Movie < ApplicationRecord
   # This declaration tells Rails to expect a 'movie_id'
   # foreign key column in the table wrapped by the Review model
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :fans, through: :favorites, source: :user
+  has_many :critics, through: :reviews, source: :user
+
+
   has_attached_file :image, styles: {
     small: "90x133>",
     thumb: "50x50>",
@@ -56,6 +61,15 @@ class Movie < ApplicationRecord
 
   def has_image?
     image.exists?
+  end
+
+  def has_fan?(user)
+    fans.include?(user)
+  end
+
+  def review_by(user)
+    reviews.find_by(user_id: user.id)
+    #critics.include?(user)
   end
 
   def average_stars

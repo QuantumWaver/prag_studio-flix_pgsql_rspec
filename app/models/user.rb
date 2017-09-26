@@ -2,6 +2,8 @@ class User < ApplicationRecord
   VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_\.]*\z/
 
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_movies, through: :favorites, source: :movie
 
   has_secure_password
 
@@ -28,6 +30,12 @@ class User < ApplicationRecord
 
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
+  end
+
+  def find_favorite(movie)
+    # can do it this way because we have an index on user_id and movie_id
+    Favorite.find_by(user_id: self.id, movie_id: movie.id)
+    #favorites.find_by(movie_id: movie.id)
   end
 
   private

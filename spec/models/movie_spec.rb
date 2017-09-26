@@ -7,7 +7,7 @@ describe "A Movie" do
     expect(movie.valid?).to eq(true)
   end
 
-  describe "has validation as it" do
+  context "has validation as it" do
     it "requires a title" do
       movie = Movie.new(title: "")
       movie.valid?  # populates errors
@@ -131,7 +131,7 @@ describe "A Movie" do
     expect(Movie.released).to eq([movie3, movie2, movie1])
   end
 
-  describe "with Reviews" do
+  context "with Reviews" do
     before do
       @user = User.create!(user_attributes)
     end
@@ -166,6 +166,21 @@ describe "A Movie" do
       movie.reviews.create(review_attributes(stars: 4, user: @user))
 
       expect(movie.average_stars).to eq(3)
+    end
+  end
+
+  context "with fans" do
+    it "can have many fans" do
+      movie = Movie.new(movie_attributes)
+
+      user1 = User.new(user_attributes)
+      user2 = User.new(user_attributes(name: "ged", username: "ged", email: "ged@rush.com"))
+
+      movie.favorites.new(user: user1)
+      movie.favorites.new(user: user2)
+
+      expect(movie.fans).to include(user1)
+      expect(movie.fans).to include(user2)
     end
   end
 

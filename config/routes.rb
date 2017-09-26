@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   #  /movies/:movie_id/reviews
   resources :movies do
     resources :reviews, except: [:show]
+    resources :favorites, only: [:create, :destroy]
   end
 
   get 'signup', to: 'users#new'

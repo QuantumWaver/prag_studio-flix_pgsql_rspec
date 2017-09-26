@@ -17,8 +17,9 @@ describe "Reviews access, a user" do
     end
 
     it "cannot create a review" do
+      other_movie = Movie.create!(movie_attributes(title: "Superman"))
       expect {
-        create_review
+        create_review(other_movie)
       }.not_to change(Review, :count)
       expect(response).to redirect_to(signin_url)
     end
@@ -54,8 +55,9 @@ describe "Reviews access, a user" do
     end
 
     it "can create a review" do
+      other_movie = Movie.create!(movie_attributes(title: "Superman"))
       expect {
-        create_review
+        create_review(other_movie)
       }.to change(Review, :count).by(1)
     end
 
@@ -85,30 +87,35 @@ describe "Reviews access, a user" do
       end
 
       it "acccessing edit page of another user's review" do
-        get edit_movie_review_path(@movie, @other_review)
-        expect(response).to redirect_to(root_url)
+        expect{
+          get edit_movie_review_path(@movie, @other_review)
+        }.to raise_exception(ActiveRecord::RecordNotFound)
       end
 
       it "updating another user's review" do
-        expect {
+        expect{
           update_review(@other_review, comment: "MovieFooBoar")
-        }.not_to change(@other_review, :comment)
-        expect(response).to redirect_to(root_url)
+        }.to raise_exception(ActiveRecord::RecordNotFound)
       end
 
       it "deleting another user's review" do
-        expect {
+        expect{
           delete movie_review_path(@movie, @other_review)
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+
+      it "creating more than one review on a movie" do
+        expect {
+          create_review(@movie)
         }.not_to change(Review, :count)
-        expect(response).to redirect_to(root_url)
       end
     end
   end
 
 private
 
-def create_review
-  post movie_reviews_path(@movie), params: {review: review_attributes(user: @user)}
+def create_review(movie)
+  post movie_reviews_path(movie), params: {review: review_attributes(user: @user)}
 end
 
 def update_review(review, attributes)

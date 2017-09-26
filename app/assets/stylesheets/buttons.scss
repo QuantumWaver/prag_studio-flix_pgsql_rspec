@@ -21,7 +21,7 @@ a.button {
 		  #7dd729 0%,
 		  #6ebd1e);
 	  background: -webkit-gradient(
-		  linear, left top, left bottom, 
+		  linear, left top, left bottom,
 		  from(#7dd729),
 		  to(#6ebd1e));
 	  -moz-border-radius: 3px;
@@ -41,5 +41,22 @@ a.button {
 		0px -1px 0px rgba(000,000,000,0),
 		0px 1px 0px rgba(255,255,255,0);
   }
+}
 
+input[type="submit"].button {
+  font-size:     16px;
+  padding:       8px;
+  border-radius: 6px;
+  box-shadow:    0px;
+  border: 1px solid $subdued-color;
+
+  &.fave {
+    color: #FFF;
+    background: $secondary-background-color;
+  }
+
+  &.unfave {
+    color: $secondary-text-color;
+    background: $primary-background-color;
+  }
 }

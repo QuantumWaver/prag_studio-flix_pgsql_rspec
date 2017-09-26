@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :require_signin, except: [:index]
   before_action :set_movie
-  before_action :require_correct_user, only: [:edit, :update, :destroy]
+  before_action :set_review, only: [:edit, :update, :destroy]
 
   def index
     @reviews = @movie.reviews.order(updated_at: :desc)
@@ -12,13 +12,18 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = @movie.reviews.build(review_params)
-    @review.user = current_user
-    if @review.save
-      redirect_to movie_reviews_path(@movie),
-          notice: "Review successfully posted!"
+    if @review = @movie.review_by(current_user)
+      redirect_to edit_movie_review_url(@movie, @review),
+          alert: "You already have a review for this movie."
     else
-      render :new
+      @review = @movie.reviews.build(review_params)
+      @review.user = current_user
+      if @review.save
+        redirect_to movie_reviews_url(@movie),
+            notice: "Review successfully posted!"
+      else
+        render :new
+      end
     end
   end
 
@@ -47,11 +52,8 @@ class ReviewsController < ApplicationController
 
   private
 
-  # Confirms the correct user by checking the user given by the request in the params
-  # with the current signed in user
-  def require_correct_user
-    @review = @movie.reviews.find(params[:id])
-    redirect_to(root_url) unless current_user?(@review.user)
+  def set_review
+    @review = current_user.reviews.find(params[:id])
   end
 
   def set_movie
