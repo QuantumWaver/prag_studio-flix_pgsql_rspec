@@ -5,7 +5,8 @@ class Movie < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :fans, through: :favorites, source: :user
   has_many :critics, through: :reviews, source: :user
-
+  has_many :characterizations, dependent: :destroy
+  has_many :genres, through: :characterizations
 
   has_attached_file :image, styles: {
     small: "90x133>",
@@ -69,7 +70,10 @@ class Movie < ApplicationRecord
 
   def review_by(user)
     reviews.find_by(user_id: user.id)
-    #critics.include?(user)
+  end
+
+  def reviewed_by?(user)
+    critics.include?(user)
   end
 
   def average_stars

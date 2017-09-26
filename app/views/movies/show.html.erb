@@ -1,8 +1,25 @@
+<% title("#{@movie.title} (#{@movie.released_on.year})") %>
+
+<% content_for :side_bar do %>
+  <%= render "shared/genres_list" %>
+
+  <% if @fans.any? %>
+    <h3><%= pluralize(@fans.size, 'Fan') %></h3>
+    <ul>
+      <% @fans.each do |user| %>
+        <li>
+          <%= link_to user.name, user %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
 <article id="movie" class="movie">
   <header>
     <%= image_for(@movie, :large) %>
     <h1><%= @movie.title %></h1>
-    <h2>Released: <%= format_release_date(@movie) %></h2>
+    <h2>Released: <%= format_release_date(@movie) %> </h2>
   </header>
 
   <p>
@@ -20,17 +37,6 @@
       <% else %>
         <%= button_to "Fave", movie_favorites_path(@movie), class: "button fave" %>
       <% end %>
-    <% end %>
-
-    <% if @fans.any? %>
-      <h3><%= pluralize(@fans.size, 'Fan') %></h3>
-      <ul>
-        <% @fans.each do |user| %>
-          <li>
-            <%= link_to user.name, user %>
-          </li>
-        <% end %>
-      </ul>
     <% end %>
   </p>
 
@@ -64,7 +70,9 @@
   </p>
 
   <div>
-    <%= render "shared/review_form" %>
+    <% unless @movie.reviewed_by?(current_user) %>
+      <%= render "shared/review_form" %>
+    <% end %>
   </div>
 
   <footer>

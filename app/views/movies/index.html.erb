@@ -1,3 +1,7 @@
+<% content_for(:side_bar) do %>
+  <%= render "shared/genres_list" %>
+<% end %>
+
 <ul id="movies">
   <% @movies.each do |movie| %>
     <li>

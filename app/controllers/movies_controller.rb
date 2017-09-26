@@ -4,12 +4,14 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.released
+    @genres = Genre.list_by_name
   end
 
   def show
     @movie = Movie.find_by(id: params[:id])
     @review = @movie.reviews.new
     @fans = @movie.fans
+    @genres = @movie.genres.list_by_name
     @current_favorite = current_user.find_favorite(@movie) if current_user
   end
 
@@ -64,7 +66,8 @@ class MoviesController < ApplicationController
               :cast,
               :director,
               :duration,
-              :image )
+              :image,
+              genre_ids: [] )
 
     # this will return an empty hash if the ':movie' param is not present
     #params.fetch(:movie, {}).

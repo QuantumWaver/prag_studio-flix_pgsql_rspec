@@ -1,0 +1,7 @@
+
+<ul>
+  <% genres.each do |genre| %>
+    <li><%= link_to "#{genre.name} (#{genre.movies.count})", genre %></li>
+  <% end %>
+</ul>
+

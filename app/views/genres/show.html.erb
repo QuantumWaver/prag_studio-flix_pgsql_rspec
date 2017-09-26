@@ -1,0 +1,24 @@
+<% content_for(:side_bar) do %>
+  <%= render "shared/genres_list" %>
+<% end %>
+
+<article id="movie" class="movie">
+
+  <h3>
+    <%= @genre.name %>
+
+    <% if current_user_admin? %>
+      <%= link_to 'Edit', edit_genre_path(@genre), class: 'button' %>
+      <%= link_to 'Delete', @genre,
+                  class: 'button',
+                  method: :delete, data: { confirm: 'Are you sure ass fuck??' } %>
+    <% end %>
+  </h3>
+
+  <ul>
+    <% @movies.each do |movie| %>
+      <li><%= link_to movie.title, movie %></li>
+    <% end %>
+  </ul>
+
+</article>

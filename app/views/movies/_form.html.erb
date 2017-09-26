@@ -35,6 +35,9 @@
         <%= f.text_field :director %>
       </li>
       <li>
+        <%= f.collection_check_boxes(:genre_ids, Genre.list_by_name, :id, :name) %>
+      </li>
+      <li>
         <%= f.label :image %>
         <%= f.file_field :image %>
       </li>

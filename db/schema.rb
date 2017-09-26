@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926061606) do
+ActiveRecord::Schema.define(version: 20170926191545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "characterizations", force: :cascade do |t|
+    t.bigint "movie_id"
+    t.bigint "genre_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_characterizations_on_genre_id"
+    t.index ["movie_id", "genre_id"], name: "index_characterizations_on_movie_id_and_genre_id", unique: true
+    t.index ["movie_id"], name: "index_characterizations_on_movie_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "movie_id"
@@ -23,6 +33,12 @@ ActiveRecord::Schema.define(version: 20170926061606) do
     t.index ["movie_id", "user_id"], name: "index_favorites_on_movie_id_and_user_id", unique: true
     t.index ["movie_id"], name: "index_favorites_on_movie_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "movies", force: :cascade do |t|
@@ -65,6 +81,8 @@ ActiveRecord::Schema.define(version: 20170926061606) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "characterizations", "genres"
+  add_foreign_key "characterizations", "movies"
   add_foreign_key "favorites", "movies"
   add_foreign_key "favorites", "users"
   add_foreign_key "reviews", "movies"
