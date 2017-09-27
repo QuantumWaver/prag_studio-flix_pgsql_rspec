@@ -190,4 +190,23 @@ describe "A User" do
     end
   end
 
+  context "can query" do
+    before do
+      @admin = User.create!(user_attributes(name: "Geddy", username: "ged", email: "ged@rush.com", admin: true))
+      @user1 = User.create!(user_attributes(name: "Neil", username: "neil", email: "neil@rush.com"))
+      @user2 = User.create!(user_attributes(name: "Alex", username: "alex", email: "alex@rush.com"))
+    end
+
+    it "all non-admins ordered by name" do
+      non_admins = User.non_admins
+      expect(non_admins).to eq([@user2, @user1])
+    end
+
+    it "all the admins" do
+      admins = User.admins
+      expect(admins).to eq([@admin])
+    end
+
+  end
+
 end

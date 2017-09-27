@@ -5,7 +5,7 @@
 <ul id="users">
   <% @users.each do |user| %>
     <li>
-      <%= link_to "#{user.name} (#{user.username})", user %>
+      <%= link_to listed_name(user), user %>
     </li>
   <% end %>
 </ul>

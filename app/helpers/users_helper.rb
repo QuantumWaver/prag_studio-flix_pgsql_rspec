@@ -14,4 +14,8 @@ module UsersHelper
     true if user.new_record?
   end
 
+  def listed_name(user)
+    user.admin? ? "#{user.name} (#{user.username}) - admin" : "#{user.name} (#{user.username})"
+  end
+
 end

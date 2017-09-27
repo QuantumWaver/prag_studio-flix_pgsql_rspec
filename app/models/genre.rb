@@ -6,10 +6,4 @@ class Genre < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  class << self
-    def recently_added
-      order(:name)
-    end
-  end
-
 end

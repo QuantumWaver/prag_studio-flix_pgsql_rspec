@@ -24,26 +24,13 @@ class Movie < ApplicationRecord
     :content_type => { :content_type => ['image/jpeg', 'image/png'] },
     :size => { :less_than => 1.megabyte }
 
-  # CLASS METHODS
-  # this is a convenient way to define classs methods when
-  # you have to define many class methods
-  class << self
-    def released
-      where("released_on <= ?", Time.now).order(released_on: :desc)
-    end
-
-    def hits
-      where('total_gross >= 300000000').order(total_gross: :desc)
-    end
-
-    def flops
-      where('total_gross < 50000000').order(total_gross: :asc)
-    end
-
-    def recently_added
-      order(created_at: :desc).limit(3)
-    end
-  end
+  scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
+  scope :hits, -> { released.where('total_gross >= 300000000').order(total_gross: :desc) }
+  scope :flops, -> { released.where('total_gross < 50000000').order(total_gross: :asc) }
+  scope :recently_added, ->(max = 3) { order(created_at: :desc).limit(max) }
+  scope :upcoming, -> { where("released_on > ?", Time.now).order(released_on: :asc) }
+  scope :rated, ->(rating) { where(rating: rating).order(:title) }
+  scope :recent, ->(max=5) { released.limit(max) }
 
   # INSTANCE METHODS
   def recent_reviews(num)
@@ -58,6 +45,10 @@ class Movie < ApplicationRecord
     end
 
     return false
+  end
+
+  def released?
+    released_on <= Time.now
   end
 
   def has_image?

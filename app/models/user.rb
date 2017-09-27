@@ -21,6 +21,10 @@ class User < ApplicationRecord
                        format: { with: VALID_USERNAME_REGEX },
                        uniqueness: { case_sensitive: false }
 
+  scope :by_name, -> { order(:name) }
+  scope :non_admins, -> { by_name.where(admin: false) }
+  scope :admins, -> { by_name.where(admin: true) }
+
   class << self
     def authenticate(login, password)
       user = User.find_by(email: login.downcase) || User.find_by(username: login.downcase)
