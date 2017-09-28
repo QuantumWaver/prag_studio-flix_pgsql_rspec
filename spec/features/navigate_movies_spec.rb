@@ -11,7 +11,7 @@ describe "Navigating movies" do
   it "allows navigation from the detail page to the listing page" do
     visit movie_url(@movie)
 
-    click_link "All Movies"
+    click_link "Released"
     expect(current_path).to eq(movies_path)
   end
 

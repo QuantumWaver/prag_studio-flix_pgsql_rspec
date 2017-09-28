@@ -1,14 +1,16 @@
 class MoviesController < ApplicationController
+  MOVIES_INDEX_SCOPE = /hits|flops|upcoming|recent/
+
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
 
   def index
-    @movies = Movie.released
+    @movies = Movie.send(movie_index_scope)
     @genres = Genre.list_by_name
   end
 
   def show
-    @movie = Movie.find_by(id: params[:id])
+    @movie = Movie.find(params[:id])
     @review = @movie.reviews.new
     @fans = @movie.fans
     @genres = @movie.genres.list_by_name
@@ -72,6 +74,14 @@ class MoviesController < ApplicationController
     # this will return an empty hash if the ':movie' param is not present
     #params.fetch(:movie, {}).
     #  permit(:title, :description, :rating, :released_on, :total_gross)
+  end
+
+  def movie_index_scope
+    if params[:scope].in? %w(hits flops upcoming recent)
+      params[:scope]
+    else
+      :released
+    end
   end
 
 end

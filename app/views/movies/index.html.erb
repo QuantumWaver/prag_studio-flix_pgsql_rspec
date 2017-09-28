@@ -23,10 +23,12 @@
             <th>Duration</th>
             <td><%= movie.duration %></td>
           </tr>
-          <tr>
-            <th>Total Gross</th>
-            <td><%= format_total_gross(movie) %></td>
-          </tr>
+          <% if movie.released? %>
+            <tr>
+              <th>Total Gross</th>
+              <td><%= format_total_gross(movie) %></td>
+            </tr>
+          <% end %>
         </table>
         <footer>
         </footer>

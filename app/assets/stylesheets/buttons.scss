@@ -6,6 +6,10 @@ a.button {
   border-radius: 4px;
   padding: 4px 6px;
   text-decoration: none;
+  &.active {
+    color: $secondary-background-color;
+    border: 2px $secondary-background-color solid;
+  }
   &:hover {
     background-color: $subdued-color;
     text-shadow: 0;
