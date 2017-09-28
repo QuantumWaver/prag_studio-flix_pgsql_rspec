@@ -10,9 +10,12 @@ module MoviesHelper
     end
   end
 
-  def format_release_date(movie)
-    "#{movie.released_on.to_s(:release_date)}" +
-    " (#{time_ago_in_words(movie.released_on)} ago)"
+  def format_release_text(movie)
+    if movie.released_on < Time.now
+      "Released: #{movie.released_on.to_s(:release_date)} (#{time_ago_in_words(movie.released_on)} ago)"
+    else
+      "Coming: #{movie.released_on.to_s(:release_date)}"
+    end
   end
 
   def image_for(movie, img_style=:small)

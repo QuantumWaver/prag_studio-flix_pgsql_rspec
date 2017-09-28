@@ -8,7 +8,7 @@ class GenresController < ApplicationController
   end
 
   def show
-    @movies = @genre.movies
+    @movies = @genre.movies.by_title
     @genres = Genre.list_by_name
   end
 

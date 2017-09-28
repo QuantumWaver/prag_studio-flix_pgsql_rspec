@@ -19,7 +19,7 @@
   <header>
     <%= image_for(@movie, :large) %>
     <h1><%= @movie.title %></h1>
-    <h2>Released: <%= format_release_date(@movie) %> </h2>
+    <h2><%= format_release_text(@movie) %></h2>
   </header>
 
   <p>

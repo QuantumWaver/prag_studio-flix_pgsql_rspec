@@ -31,6 +31,7 @@ class Movie < ApplicationRecord
   scope :upcoming, -> { where("released_on > ?", Time.now).order(released_on: :asc) }
   scope :rated, ->(rating) { where(rating: rating).order(:title) }
   scope :recent, ->(max=5) { released.limit(max) }
+  scope :by_title, -> { order(title: :asc) }
 
   # INSTANCE METHODS
   def recent_reviews(num)
