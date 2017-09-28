@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926191545) do
+ActiveRecord::Schema.define(version: 20170928220014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170926191545) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "rating"
     t.decimal "total_gross"
     t.datetime "created_at", null: false
@@ -56,6 +56,9 @@ ActiveRecord::Schema.define(version: 20170926191545) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.string "slug", null: false
+    t.index ["slug"], name: "index_movies_on_slug", unique: true
+    t.index ["title"], name: "index_movies_on_title", unique: true
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -78,6 +81,8 @@ ActiveRecord::Schema.define(version: 20170926191545) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.boolean "admin", default: false
+    t.string "slug", null: false
+    t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

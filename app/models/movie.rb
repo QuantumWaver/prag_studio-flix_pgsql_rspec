@@ -16,13 +16,19 @@ class Movie < ApplicationRecord
 
   RATINGS = %w(G PG PG-13 R NC-17)
 
-  validates :title, :released_on, :duration, presence: true
+  validates :title, presence: true, uniqueness: { case_sensitive: false }
+  validates :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :rating, inclusion: { in: RATINGS }
   validates_attachment :image,
     :content_type => { :content_type => ['image/jpeg', 'image/png'] },
     :size => { :less_than => 1.megabyte }
+  validates :slug, presence: true,
+      uniqueness: { case_sensitive: false },
+      format: { with: VALID_SLUG_REGEX }
+
+  before_validation :set_slug!, on: :create
 
   scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
   scope :hits, -> { released.where('total_gross >= 300000000').order(total_gross: :desc) }
@@ -74,6 +80,19 @@ class Movie < ApplicationRecord
 
   def unreviewed?
     reviews.count.zero?
+  end
+
+  def set_slug!
+    self.slug ||= title.parameterize if title.present?
+  end
+
+  # We are overriding this method as this is the method that Rails
+  # calls when you use 'movie_path(@movie)', which normally would
+  # return 'movies/3', so this method would normally insert the
+  # movie id into the path parameter, now we are going to put in
+  # the slug:
+  def to_param
+    slug
   end
 
 end

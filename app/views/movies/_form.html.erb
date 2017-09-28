@@ -34,6 +34,14 @@
         <%= f.label :director %>
         <%= f.text_field :director %>
       </li>
+
+      <% unless @movie.new_record? %>
+        <li>
+          <%= f.label :slug %>
+          <%= f.text_field :slug, size: 30 %>
+        </li>
+      <% end %>
+
       <li>
         <%= f.collection_check_boxes(:genre_ids, Genre.list_by_name, :id, :name) %>
       </li>

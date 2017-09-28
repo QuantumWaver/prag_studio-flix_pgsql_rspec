@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by!(slug: params[:id])
     @favorite_movies = @user.favorite_movies
     @reviews = @user.reviews
   end
@@ -38,12 +38,13 @@ class UsersController < ApplicationController
      else
       # by rendering, and not redirecting, we preserve all
       # the valid data that was entered
+      @user.username = User.find(@user.id).username if @user.errors[:username].any?
       render :edit
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find_by!(slug: params[:id])
     @user.destroy
     log_out
     redirect_to root_url, alert: "User account successfully deleted!"
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
   # Confirms the correct user by checking the user given by the request in the params
   # with the current signed in user
   def require_correct_user
-    @user = User.find(params[:id])
+    @user = User.find_by!(slug: params[:id])
     redirect_to(root_url) unless current_user?(@user)
   end
 

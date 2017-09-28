@@ -3,6 +3,7 @@ class MoviesController < ApplicationController
 
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
     @movies = Movie.send(movie_index_scope)
@@ -10,7 +11,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(params[:id])
     @review = @movie.reviews.new
     @fans = @movie.fans
     @genres = @movie.genres.list_by_name
@@ -18,7 +18,6 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie = Movie.find(params[:id])
   end
 
   def new
@@ -38,24 +37,27 @@ class MoviesController < ApplicationController
   end
 
   def update
-    @movie = Movie.find(params[:id])
     if @movie.update(movie_params)
       # redirect and set the flash message
       redirect_to @movie, notice: "Movie successfully updated!"
      else
       # by rendering, and not redirecting, we preserve all
       # the valid data that was entered
+      @movie.slug = Movie.find(@movie.id).slug if @movie.errors[:slug].any?
       render :edit  # 'movies/edit'
     end
   end
 
   def destroy
-    movie = Movie.find(params[:id])
-    movie.destroy
+    @movie.destroy
     redirect_to movies_url, alert: "Movie successfully deleted!"
   end
 
   private
+
+  def set_movie
+    @movie = Movie.find_by!(slug: params[:id])
+  end
 
   def movie_params
     # this will throw an exception if ':movie' param is not present
@@ -69,6 +71,7 @@ class MoviesController < ApplicationController
               :director,
               :duration,
               :image,
+              :slug,
               genre_ids: [] )
 
     # this will return an empty hash if the ':movie' param is not present

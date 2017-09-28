@@ -59,7 +59,7 @@ describe "A User" do
       expect(@new_user.errors[:username].any?).to eq(true)
     end
 
-    it "requires a username to not be at least 3 characters" do
+    it "requires a username to be at least 3 characters" do
       @new_user.username = "aa"
       @new_user.valid?  # populates errors
       expect(@new_user.errors[:username].any?).to eq(true)
@@ -83,6 +83,38 @@ describe "A User" do
       @new_user.username = @other_user.email
       @new_user.valid?  # populates errors
       expect(@new_user.errors[:username].any?).to eq(true)
+    end
+
+    context "has slugs based on parametrerized usernames by" do
+      it "forcing slugs to be unique" do
+        @new_user.slug = @other_user.slug
+        @new_user.valid?  # populates errors
+        expect(@new_user.errors[:slug].any?).to eq(true)
+      end
+
+      it "generating a slug on validation if needed" do
+        @new_user.username = "Jeff.Sholl"
+        expect do
+          expect(@new_user).to be_valid
+        end.to change{@new_user.slug}.from(nil).to('jeff-sholl')
+      end
+
+      it "rejecting invalid slugs on validation" do
+        invalid_slugs = ['', 'My Slug', 'My@slug', 'my.slug', 'my$slug', 'my;;slug', 'MY-SLUG']
+        invalid_slugs.each do |invalid_slug|
+          @new_user.slug = invalid_slug
+          expect(@new_user).not_to be_valid, "#{invalid_slug.inspect} should be invalid"
+          expect(@new_user.errors[:slug].any?).to eq(true)
+        end
+      end
+
+      it "accepting valid slugs on validation" do
+        valid_slugs = %w[myslug my_slug my-slug my_slug-69]
+        valid_slugs.each do |valid_slug|
+          @new_user.slug = valid_slug
+          expect(@new_user).to be_valid, "#{valid_slug.inspect} should be valid"
+        end
+      end
     end
 
     it "requires an email" do

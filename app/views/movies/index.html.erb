@@ -5,7 +5,7 @@
 <ul id="movies">
   <% @movies.each do |movie| %>
     <li>
-      <article class="movie">
+      <article class="movie" id="<%= dom_id(movie) %>">
         <header>
           <%= image_for(movie) %>
           <h2><%= link_to movie.title, movie %> (<%= movie.released_on.year %>)</h2>
