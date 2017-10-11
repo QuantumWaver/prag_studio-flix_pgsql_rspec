@@ -56,19 +56,30 @@
       <%= format_total_gross(@movie) %>
     </p>
 
-    <h3>Average Stars</h3>
-    <p>
-      <%= format_average_stars(@movie) %>
-    </p>
+    <% if @movie.unreviewed? %>
+      <p>
+        <strong>No reviews yet!</strong>
+      </p>
+    <% else %>
+      <h3>Average Stars</h3>
+      <p>
+        <%= format_average_stars(@movie) %>
+      </p>
 
-    <p>
-      <% unless @movie.unreviewed? %>
-        <%= link_to pluralize(@movie.reviews.count, "review"),
-              movie_reviews_path(@movie) %>
+      <p>
+        <%= link_to 'Show Recent Reviews', "#", id: "reviews-toggle" %>
+      </p>
+      <section id="reviews-section" >
+        <p>
+          <% unless @movie.unreviewed? %>
+            <%= link_to pluralize(@movie.reviews.count, "review"),
+                  movie_reviews_path(@movie) %>
 
-        <%= render "shared/list_reviews", reviews: @movie.recent_reviews(2) %>
-      <% end %>
-    </p>
+            <%= render "shared/list_reviews", reviews: @movie.recent_reviews(2) %>
+          <% end %>
+        </p>
+      </section>
+    <% end %>
 
     <div>
       <% unless @movie.reviewed_by?(current_user) %>

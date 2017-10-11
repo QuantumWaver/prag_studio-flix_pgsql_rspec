@@ -1,0 +1,14 @@
+<li>
+  <span class="review"><%= pluralize(review.stars, 'star') %></span>
+  <span class="user">by <%= review.name %></span>
+  <span class="date"> | last updated <%= time_ago_in_words(review.updated_at) %> ago</span>
+
+    | <%= link_to 'Edit', edit_movie_review_path(review.movie, review) %>
+
+    | <%= link_to 'Delete', [review.movie, review],
+              method: :delete, data: { confirm: 'Are you sure ass fuck??' } %>
+
+  <p>
+    &quot;<%= review.comment %>&quot;
+  </p>
+</li>
