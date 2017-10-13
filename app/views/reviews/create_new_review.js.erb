@@ -1,0 +1,4 @@
+$('#reviews-info').html("<%= escape_javascript(render partial: 'movies/reviews_info', locals: { movie: @movie }) %>");
+$('#reviews-section').show();
+$('#reviews-toggle').html("Hide Recent Reviews")
+

@@ -19,9 +19,18 @@ class ReviewsController < ApplicationController
       @review = @movie.reviews.build(review_params)
       @review.user = current_user
       if @review.save
-        redirect_to @movie, notice: "Review successfully posted!"
+        # Lets us respond to whatever the client wants
+        respond_to do |format|
+          format.html { redirect_to @movie, notice: "Review successfully posted!" }
+          # format.js  # this alone will render /reviews/create.js.erb as we are in the
+                       # 'create' action. However, I did the below only as a test to respond to as specific file
+          format.js { render 'reviews/create_new_review.js.erb' }
+        end
       else
-        render :new
+        respond_to do |format|
+          format.html { render :new }
+          format.js { render 'reviews/create_error.js.erb' }
+        end
       end
     end
   end

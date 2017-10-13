@@ -197,7 +197,7 @@ describe "A Movie" do
       @movie2 = Movie.create!(movie_attributes(title: "movie2", released_on: 2.months.ago))
       @movie3 = Movie.create!(movie_attributes(title: "movie3", released_on: 1.month.ago))
       @movie4 = Movie.create!(movie_attributes(title: "movie4", released_on: 1.week.ago))
-      @movie5 = Movie.create!(movie_attributes(title: "movie5", released_on: 1.day.ago))
+      @movie5 = Movie.create!(movie_attributes(title: "movie5", released_on: 2.days.ago))
       @movie6 = Movie.create!(movie_attributes(title: "movie6", released_on: 1.hour.ago))
       @movie7 = Movie.create!(movie_attributes(title: "movie7", released_on: 1.day.from_now))
     end

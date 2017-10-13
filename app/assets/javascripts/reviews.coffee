@@ -18,8 +18,12 @@
 #    to add a fade effect
 
 $(document).on "turbolinks:load", ->
-  $('#reviews-toggle').click (e) ->
-    e.preventDefault()
+  $('#reviews-toggle').click (event) ->
+    this.innerHTML = if (this.innerHTML == 'Show Recent Reviews')
+      'Hide Recent Reviews'
+    else
+      'Show Recent Reviews'
+    event.preventDefault()
     $('#reviews-section').fadeToggle()
 
 

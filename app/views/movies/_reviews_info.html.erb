@@ -1,0 +1,34 @@
+<div id='reviews-info', class='reviews-info' >
+
+  <% if movie.unreviewed? %>
+    <p>
+      <strong>No reviews yet!</strong>
+    </p>
+  <% else %>
+
+    <h3>Average Stars</h3>
+    <p>
+      <%= format_average_stars(movie) %>
+    </p>
+
+
+    <p>
+      <%= link_to 'Show Recent Reviews', "#", id: "reviews-toggle" %>
+      | <%= link_to "All Reviews (#{movie.reviews.count})", movie_reviews_path(movie) %>
+    </p>
+    <section id="reviews-section" >
+      <ol id="reviews">
+        <%= render movie.recent_reviews(3) %>
+      </ol>
+    </section>
+
+  <% end %>
+
+  <div>
+    <% unless movie.reviewed_by?(current_user) %>
+      <div id='review-form-errors'></div>
+      <%= render "shared/review_form" %>
+    <% end %>
+  </div>
+
+</div>

@@ -18,7 +18,7 @@ describe "Creating a Review" do
     fill_in "Comment", with: "I hated this movie!"
 
     click_button 'Post Review'
-    expect(current_path).to eq(movie_reviews_path(@movie))
+    expect(current_path).to eq(movie_path(@movie))
     expect(page).to have_text('I hated this movie!')
   end
 
@@ -30,7 +30,7 @@ describe "Creating a Review" do
     fill_in "Comment", with: "I hated this movie!"
 
     click_button 'Post Review'
-    expect(current_path).to eq(movie_reviews_path(@movie))
+    expect(current_path).to eq(movie_path(@movie))
     expect(page).to have_text('I hated this movie!')
   end
 

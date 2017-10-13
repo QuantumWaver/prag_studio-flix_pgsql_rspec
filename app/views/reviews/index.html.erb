@@ -2,5 +2,8 @@
   <h1>Reviews for <%= link_to(@movie.title, @movie) %></h1>
 </header>
 
-<%= render "shared/list_reviews", reviews: @reviews %>
+<ol id="reviews">
+  <%= render @reviews %>
+</ol>
+
 
